@@ -1,6 +1,5 @@
 from torch import nn
 import torch
-import torch.nn.functional as F
 import attention
 import mlp
 
@@ -65,7 +64,7 @@ class TransformerLM(nn.Module):
         n_params = sum(p.numel() for p in self.parameters())
         print("Parameter count: %.2fM" % (n_params/1e6,))
 
-    def forward(self, inputs):
+    def forward(self, inputs: nn.IntTensor):
         x = self.embed(inputs)
         for layer in self.layers:
             x = layer(x)
@@ -83,13 +82,11 @@ class TransformerLM(nn.Module):
                 torch.nn.init.zeros_(p.bias)
                 torch.nn.init.ones_(p.weight)
             elif isinstance(p, nn.Linear):
-                # TODO initialize p.weight and p.bias (if it is not None).
-                # You can look at initializers in torch.nn.init
-                pass
+                torch.nn.init.xaviar_normal_(p.weight)
+                if p.bias is not None:
+                    torch.nn.init.zeros(p.bias)
             elif isinstance(p, nn.Embedding):
-                # TODO initialize p.weight and p.bias (if it is not None).
-                # You can look at initializers in torch.nn.init
-                pass
+                torch.nn.init.xaviar_normal_(p.weight)
 
 
     def sample_continuation(self, prefix: list[int], max_tokens_to_generate: int) -> list[int]:
