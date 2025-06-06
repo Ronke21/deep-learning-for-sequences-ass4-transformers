@@ -6,25 +6,29 @@ import math
 
 
 def create_kqv_matrix(input_vector_dim, n_heads = 1):
-    return nn.Linear(0, 0) # TODO fill in the correct dimensions
+    return nn.Linear(input_vector_dim, int((3 * (input_vector_dim / n_heads))))
 
 def kqv(x, linear):
-    raise Exception("Not implemented.")
+    x = linear(x)
     B, N, D = x.size()
-    # TODO compute k, q, and v
-    # (can do it in 1 or 2 lines.)
+    k, q, v = torch.split(x, D // 3, dim=2)
     return k, q, v
 
 def attention_scores(a, b):
-    raise Exception("Not implemented.")
-
     B1, N1, D1 = a.size()
     B2, N2, D2 = b.size()
     assert B1 == B2
     assert D1 == D2
+    # Transpose 'a' to match dimensions for matrix multiplication
+    a_t = a.transpose(1, 2)
 
-    # TODO compute A (remember: we are computing *scaled* dot product attention. don't forget the scaling.
-    # (can do it in 1 or 2 lines.)
+    # Compute attention scores (or similar) using matrix multiplication
+    scores = b @ a_t
+
+    # Normalize scores to reduce the impact of high dimensionality
+    A = scores / math.sqrt(D1)
+
+    # result[batch_index][i][j] = dot(q_i, K_j)/sqrt(dim_k)
     return A
 
 def create_causal_mask(embed_dim, n_heads, max_context_len):
