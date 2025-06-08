@@ -1,7 +1,7 @@
 from typing import Optional
 from torch import nn
 import torch
-import torch.nn.functional as F
+import torch.nn.functional
 import math
 
 
@@ -31,23 +31,27 @@ def attention_scores(a, b):
     # result[batch_index][i][j] = dot(q_i, K_j)/sqrt(dim_k)
     return A
 
-def create_causal_mask(embed_dim, n_heads, max_context_len):
-    raise Exception("Not implemented")
+def create_causal_mask(max_context_len):
     # Return a causal mask (a tensor) with zeroes in dimensions we want to zero out.
     # This function receives more arguments than it actually needs. This is just because
     # it is part of an assignment, and I want you to figure out on your own which arguments
     # are relevant.
-
-    mask = None # TODO replace this line with the creation of a causal mask.
+    mask = torch.tril(torch.ones((1, max_context_len, max_context_len)))
     return mask
 
 def self_attention(v, A, mask = None):
-    raise Exception("Not implemented.")
-    # TODO compute sa (corresponding to y in the assignemnt text).
-    # This should take very few lines of code.
-    # As usual, the dimensions of v and of sa are (b x n x d).
-    return sa
-
+    B1, N1, D1 = v.size()
+    B2, N2, D2 = A.size()
+    assert B1 == B2
+    assert N1 == N2
+    assert N1 == D2
+    if mask is not None:
+        M = mask[0, :N2, :N2]
+        A = A.masked_fill(M == 0, float("-inf"))
+    # softmax over each vector of attention of x_i, q_i is constant while k_j varies, this is the third dim in A
+    # in this multiplication in a single operation we take the weights and sum the vectors to get the weighted results
+    # each result[batch_index][i]= weighted vectors V summed with weights for attention x_i
+    return torch.nn.functional.softmax(A, dim=2) @ v
 
 def self_attention_layer(x, kqv_matrix, attention_mask):
     k, q, v = kqv(x, kqv_matrix)
@@ -56,15 +60,9 @@ def self_attention_layer(x, kqv_matrix, attention_mask):
     return sa
 
 def multi_head_attention_layer(x, kqv_matrices, mask):
-    raise Exception("Not implemented.")
     B, N, D = x.size()
-    # TODO implement multi-head attention.
-    # This is most easily done using calls to self_attention_layer, each with a different
-    # entry in kqv_matrices, and combining the results.
-    #
-    # There is also a tricker (but more efficient) version of multi-head attention, where we do all the computation
-    # using a single multiplication with a single kqv_matrix (or a single kqv_tensor) and re-arranging the results afterwards.
-    # If you want a challenge, you can try and implement this. You may need to change additional places in the code accordingly.
+    sa_arr = [self_attention_layer(x, kqv_matrix, mask) for kqv_matrix in kqv_matrices]
+    sa = torch.cat(sa_arr, dim=2)
     assert sa.size() == x.size()
     return sa
 

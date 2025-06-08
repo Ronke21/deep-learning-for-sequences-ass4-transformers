@@ -24,3 +24,53 @@ def test_attention_scores():
         assert dim_1 == m
         assert dim_2 == n
 
+
+def test_kqv():
+    n_heads = 2
+    b, n, d = 3, 4, n_heads * 3
+    x = torch.ones(b, n, d)
+    kqv_matrices = nn.ModuleList([attention.create_kqv_matrix(d, n_heads) for i in range(n_heads)])
+    for kqv_matrix in kqv_matrices:
+        k, q, v = attention.kqv(x, kqv_matrix)
+        assert k.shape == (b, n, int(d / n_heads))
+        assert q.shape == (b, n, int(d / n_heads))
+        assert v.shape == (b, n, int(d / n_heads))
+
+def test_self_attention():
+    v = torch.tensor([[[1.0, 2.0, 3.0],
+                       [4.0, 5.0, 6.0]]])
+    A = torch.tensor([[[0.1, 0.2],
+                       [0.3, 0.4]]])
+    output = attention.self_attention(v, A)
+    expected_output = torch.tensor([[[2.4283, 3.4283, 4.4283],
+                                     [3.5130, 4.5130, 5.5130]]])
+    torch.allclose(output, expected_output)
+
+    mask = attention.create_causal_mask(3, 2, 6)
+    masked_output = attention.self_attention(v, A, mask)
+
+
+def test_multi_head_attention_layer():
+    n_heads = 2
+    b, n, d = 3, 4, n_heads * 3
+    x = torch.ones(b, n, d)
+    kqv_matrices = nn.ModuleList([attention.create_kqv_matrix(d, n_heads) for i in range(n_heads)])
+    mask = attention.create_causal_mask(d, n_heads, 6)
+    attention.multi_head_attention_layer(x, kqv_matrices, mask)
+
+
+def test_causal_self_attention():
+    n_heads = 2
+    b, n, d = 3, 4, n_heads * 3
+    max_context_len = 6
+    causual_self_attention_model = attention.CausalSelfAttention(d, n_heads, max_context_len)
+    x = torch.ones(b, n, d)
+    attention_on_x = causual_self_attention_model(x)
+
+
+if __name__ == '__main__':
+    test_kqv()
+    test_attention_scores()
+    test_self_attention()
+    test_multi_head_attention_layer()
+    test_causal_self_attention()
