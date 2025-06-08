@@ -15,30 +15,32 @@ class TransformerDecoderBlock(nn.Module):
 
     def forward(self, inputs):
         if self.with_residuals:
-            raise Exception("Not implemented")
-            # TODO add residuals support.
+            x = inputs
+            x = self.layer_norm_1(x)
+            x = self.causal_attention(x)
+            x = self.layer_norm_2(x) + inputs
+            x = self.mlp(x) + x
         else:
             x = inputs
             x = self.layer_norm_1(x)
             x = self.causal_attention(x)
             x = self.layer_norm_2(x)
             x = self.mlp(x)
-            return x
+        return x
 
 class Embed(nn.Module):
     def __init__(self, vocab_size: int, embed_size: int, max_context_len):
         super().__init__()
-        self.token_embeddings = nn.Embedding(0, 0) # TODO set the right values
-        self.position_embeddings = nn.Embedding(0, 0) # TODO set the right values
+        self.token_embeddings = nn.Embedding(vocab_size, embed_size)
+        self.position_embeddings = nn.Embedding(max_context_len, embed_size)
         self.max_context_len = max_context_len
 
     def forward(self, x):
-        raise Exception("Not implemented") # TODO implement.
+        tok_embeddings = self.token_embeddings(x)
+        pos_embeddings = self.position_embeddings(torch.arange(x.shape[-1], device=x.device))
         # x has the shape (b x n) where b is batch dimension and n is sequence length.
         # each item is an int, indicating a vocabulary item.
         # The output should be of shape (b x n x d), where d is the embedding dimension.
-        #tok_embeddings = 
-        #pos_embeddings = ...
         return tok_embeddings + pos_embeddings
 
 
@@ -73,23 +75,16 @@ class TransformerLM(nn.Module):
         logits = self.word_prediction(x)
         return logits
 
+
     def init_weights(self):
-        # initialize weights
-        # TODO implement initialization logic for embeddings and linear layers.
-        # The code break down the parameters by type (layer-norm, linear, embedding),
-        # but can also condition on individual names, for example by checking pn.endswith(...).
-        for pn, p in self.named_parameters():
-            if isinstance(p, nn.LayerNorm):
-                torch.nn.init.zeros_(p.bias)
-                torch.nn.init.ones_(p.weight)
-            elif isinstance(p, nn.Linear):
-                # TODO initialize p.weight and p.bias (if it is not None).
-                # You can look at initializers in torch.nn.init
-                pass
-            elif isinstance(p, nn.Embedding):
-                # TODO initialize p.weight and p.bias (if it is not None).
-                # You can look at initializers in torch.nn.init
-                pass
+        for name, module in self.named_modules():
+            init_module(module)
+            if isinstance(module, nn.ModuleList):
+                for sub_name, sub_module in module.named_modules():
+                    init_module(sub_module)
+                    if isinstance(sub_module, nn.ModuleList):
+                        for sub_sub_name, sub_sub_module in sub_module.named_modules():
+                            init_module(sub_sub_module)
 
 
     def sample_continuation(self, prefix: list[int], max_tokens_to_generate: int) -> list[int]:
@@ -115,3 +110,14 @@ class TransformerLM(nn.Module):
         # TopK indicates that we don't sample from the entire distribution, but only from the top k scoring tokens
         # for the given position.
 
+
+def init_module(p):
+    if isinstance(p, nn.LayerNorm):
+        torch.nn.init.zeros_(p.bias)
+        torch.nn.init.ones_(p.weight)
+    elif isinstance(p, nn.Linear):
+        torch.nn.init.xavier_normal_(p.weight)
+        if p.bias is not None:
+            torch.nn.init.normal_(p.bias)
+    elif isinstance(p, nn.Embedding):
+        torch.nn.init.xavier_normal_(p.weight)
