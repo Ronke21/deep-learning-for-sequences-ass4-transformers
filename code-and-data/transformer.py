@@ -4,6 +4,9 @@ import torch.nn.functional as F
 import attention
 import mlp
 
+def get_module_device(module):
+    return next(module.parameters()).device
+
 class TransformerDecoderBlock(nn.Module):
     def __init__(self, n_heads: int, embed_size: int, mlp_hidden_size: int, max_context_len, with_residuals: bool = False):
         super().__init__()

@@ -1,6 +1,7 @@
 import torch
 import attention
 import numpy as np
+from torch import nn
 
 def test_attention_scores():
     test_and_answers_values = [(1, 2, 3, 4, [[[5, 11, 17], [11, 25, 39], [17, 39, 61], [23, 53, 83]]]),

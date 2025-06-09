@@ -31,7 +31,7 @@ def attention_scores(a, b):
     # result[batch_index][i][j] = dot(q_i, K_j)/sqrt(dim_k)
     return A
 
-def create_causal_mask(max_context_len):
+def create_causal_mask(embed_dim, n_heads, max_context_len):
     # Return a causal mask (a tensor) with zeroes in dimensions we want to zero out.
     # This function receives more arguments than it actually needs. This is just because
     # it is part of an assignment, and I want you to figure out on your own which arguments
