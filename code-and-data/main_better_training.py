@@ -1,4 +1,4 @@
-# python main.py 2>&1 | tee training.log
+# python main.py 2>&1 | tee results/training.log
 
 
 from __future__ import annotations
@@ -14,7 +14,7 @@ import lm
 from transformer import TransformerLM
 import matplotlib.pyplot as plt
 
-EPOCHS = 50000
+EPOCHS = 1000
 
 
 def get_file_name(
@@ -31,20 +31,6 @@ def get_file_name(
     num_batches_to_train,
     use_scheduler,
 ):
-    s = seq_len
-    b = batch_size
-    dp = data_path
-    nl = n_layers
-    nh = n_heads
-    es = embed_size
-    mhs = mlp_hidden_size
-
-    lr = learning_rate
-    gc = gradient_clipping
-    wd = weight_decay
-
-    nbtt = num_batches_to_train
-    us = use_scheduler
 
     return (f"with_dropout_seq-len_{seq_len}_batch-size_{batch_size}_data-path_{data_path}_"
             f"n-layers_{n_layers}_n-heads_{n_heads}_embed-size_{embed_size}_mlp-hidden-size{mlp_hidden_size}"
@@ -56,7 +42,7 @@ def get_file_name(
 
 def main():
     seq_len = 128
-    batch_size = 128
+    batch_size = 64
     data_path = "data/"
     results_path = "results"
     n_layers = 6
