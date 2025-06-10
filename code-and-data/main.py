@@ -1,3 +1,6 @@
+# python main.py 2>&1 | tee training.log
+
+
 from __future__ import annotations
 
 import json
@@ -11,7 +14,7 @@ import lm
 from transformer import TransformerLM
 import matplotlib.pyplot as plt
 
-EPOCHS = 10
+EPOCHS = 50000
 
 
 def get_file_name(
@@ -88,6 +91,9 @@ def main():
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
+
+    if not os.path.exists(results_path):
+        os.makedirs(results_path)
 
     tokenizer, tokenized_data = data.load_data(data_path)
     tokenizer_file_path = f"{run_file_name}_tokenizer.pth"
