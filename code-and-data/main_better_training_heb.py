@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=1 python main_better_training_heb.py 2>&1 | tee training_better_training_heb.log
+# CUDA_VISIBLE_DEVICES=1 python main_heb.py 2>&1 | tee training_heb.log
 
 
 from __future__ import annotations
