@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=3 python main_eng_weight_decay.py 2>&1 | tee training_eng_weight_decay.log
+# CUDA_VISIBLE_DEVICES=0 python main_eng_all_better.py 2>&1 | tee training_eng_all_better.log
 
 
 from __future__ import annotations
@@ -41,13 +41,13 @@ def get_file_name(
 
 
 def main():
-    seq_len = 128
-    batch_size = 64
+    seq_len = 256
+    batch_size = 32
     data_path = "data/"
-    results_path = "results_eng_weight_decay"
-    n_layers = 6
-    n_heads = 6
-    embed_size = 192
+    results_path = "results_eng_all_better"
+    n_layers = 12
+    n_heads = 12
+    embed_size = 384
     mlp_hidden_size = embed_size * 4
 
     learning_rate = 5e-4

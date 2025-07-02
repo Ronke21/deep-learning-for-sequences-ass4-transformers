@@ -82,7 +82,7 @@ def main():
         os.makedirs(results_path)
 
     tokenizer, tokenized_data = data.load_data(data_path)
-    tokenizer_file_path = f"{run_file_name}_tokenizer.pth"
+    tokenizer_file_path = os.path.join(results_path, f"{run_file_name}_tokenizer.pth")
     torch.save(tokenizer, tokenizer_file_path)
 
     # NOTE: are data items are longer by one than the sequence length,

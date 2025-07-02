@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=2 python main_eng_more_heads.py 2>&1 | tee training_eng_more_heads.log
+# CUDA_VISIBLE_DEVICES=3 python main_eng_more_heads.py 2>&1 | tee training_eng_more_heads.log
 
 
 from __future__ import annotations
@@ -82,7 +82,7 @@ def main():
         os.makedirs(results_path)
 
     tokenizer, tokenized_data = data.load_data(data_path)
-    tokenizer_file_path = f"{run_file_name}_tokenizer.pth"
+    tokenizer_file_path = os.path.join(results_path, f"{run_file_name}_tokenizer.pth")
     torch.save(tokenizer, tokenizer_file_path)
 
     # NOTE: are data items are longer by one than the sequence length,
@@ -100,7 +100,7 @@ def main():
     ).to(device)
 
     optimizer = optim.AdamW(
-        model.parameters(), lr=learning_rate, betas=(0.9, 0.95), weight_decay=weight_decay
+        model.parameters(), lr=learning_rate, betas=(0.9, 0.95),
     )
     scheduler = torch.optim.lr_scheduler.StepLR(
         optimizer, step_size=num_batches_to_train // 5, gamma=0.8
