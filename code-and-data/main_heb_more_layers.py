@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=1 python main_heb_regular.py 2>&1 | tee training_heb_regular.log
+# CUDA_VISIBLE_DEVICES=0 python main_heb_more_layers.py 2>&1 | tee training_heb_more_layers.log
 
 
 from __future__ import annotations
@@ -44,8 +44,8 @@ def main():
     seq_len = 128
     batch_size = 64
     data_path = "heb-data/"
-    results_path = "results_heb_regular"
-    n_layers = 6
+    results_path = "results_heb_more_layers"
+    n_layers = 12
     n_heads = 6
     embed_size = 192
     mlp_hidden_size = embed_size * 4

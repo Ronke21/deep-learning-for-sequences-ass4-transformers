@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=1 python main_heb_regular.py 2>&1 | tee training_heb_regular.log
+# CUDA_VISIBLE_DEVICES=2 python main_heb_smaller_batch.py 2>&1 | tee training_heb_smaller_batch.log
 
 
 from __future__ import annotations
@@ -42,9 +42,9 @@ def get_file_name(
 
 def main():
     seq_len = 128
-    batch_size = 64
+    batch_size = 32
     data_path = "heb-data/"
-    results_path = "results_heb_regular"
+    results_path = "results_heb_smaller_batch"
     n_layers = 6
     n_heads = 6
     embed_size = 192

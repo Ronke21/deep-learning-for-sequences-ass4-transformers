@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=1 python main_heb_regular.py 2>&1 | tee training_heb_regular.log
+# CUDA_VISIBLE_DEVICES=0 python main_heb_all_better.py 2>&1 | tee training_heb_all_better.log
 
 
 from __future__ import annotations
@@ -41,13 +41,13 @@ def get_file_name(
 
 
 def main():
-    seq_len = 128
-    batch_size = 64
+    seq_len = 256
+    batch_size = 32
     data_path = "heb-data/"
-    results_path = "results_heb_regular"
-    n_layers = 6
-    n_heads = 6
-    embed_size = 192
+    results_path = "results_heb_all_better"
+    n_layers = 12
+    n_heads = 12
+    embed_size = 384
     mlp_hidden_size = embed_size * 4
 
     learning_rate = 5e-4
@@ -100,7 +100,7 @@ def main():
     ).to(device)
 
     optimizer = optim.AdamW(
-        model.parameters(), lr=learning_rate, betas=(0.9, 0.95),
+        model.parameters(), lr=learning_rate, betas=(0.9, 0.95), weight_decay=weight_decay
     )
     scheduler = torch.optim.lr_scheduler.StepLR(
         optimizer, step_size=num_batches_to_train // 5, gamma=0.8

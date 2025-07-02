@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=1 python main_heb_regular.py 2>&1 | tee training_heb_regular.log
+# CUDA_VISIBLE_DEVICES=3 python main_heb_weight_decay.py 2>&1 | tee training_heb_weight_decay.log
 
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ def main():
     seq_len = 128
     batch_size = 64
     data_path = "heb-data/"
-    results_path = "results_heb_regular"
+    results_path = "results_heb_weight_decay"
     n_layers = 6
     n_heads = 6
     embed_size = 192
@@ -100,7 +100,7 @@ def main():
     ).to(device)
 
     optimizer = optim.AdamW(
-        model.parameters(), lr=learning_rate, betas=(0.9, 0.95),
+        model.parameters(), lr=learning_rate, betas=(0.9, 0.95), weight_decay=weight_decay
     )
     scheduler = torch.optim.lr_scheduler.StepLR(
         optimizer, step_size=num_batches_to_train // 5, gamma=0.8

@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=1 python main_heb_regular.py 2>&1 | tee training_heb_regular.log
+# CUDA_VISIBLE_DEVICES=2 python main_heb_bigger_seq_len.py 2>&1 | tee training_heb_bigger_seq_len.log
 
 
 from __future__ import annotations
@@ -41,10 +41,10 @@ def get_file_name(
 
 
 def main():
-    seq_len = 128
+    seq_len = 256
     batch_size = 64
     data_path = "heb-data/"
-    results_path = "results_heb_regular"
+    results_path = "results_heb_bigger_seq_len"
     n_layers = 6
     n_heads = 6
     embed_size = 192

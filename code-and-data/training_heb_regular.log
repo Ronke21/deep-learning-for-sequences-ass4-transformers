@@ -1,0 +1,217 @@
+Using device: cuda
+Parameter count: 2.76M
+Training with seq_len=128, batch_size=64, n_layers=6, n_heads=6, embed_size=192, mlp_hidden_size=768, learning_rate=0.0005, gradient_clipping=1.0, weight_decay=0.01, num_batches_to_train=50000, use_scheduler=True
+Seen 10 batches. last loss is: 3.4011566638946533
+Seen 20 batches. last loss is: 3.1169235706329346
+Seen 30 batches. last loss is: 2.9042301177978516
+Seen 40 batches. last loss is: 2.808877944946289
+Seen 50 batches. last loss is: 2.708313226699829
+Seen 60 batches. last loss is: 2.7416388988494873
+Seen 70 batches. last loss is: 2.68290638923645
+Seen 80 batches. last loss is: 2.7311906814575195
+Seen 90 batches. last loss is: 2.596120595932007
+Seen 100 batches. last loss is: 2.6385488510131836
+Model sample: '''ר ..
+א בה אל את ה לאי לבות .
+
+אובי, ה ה ..
+
+ל את או .
+לי, ברא א ה א ל ל הי ב אות א בלוב .
+
+
+
+
+מרות לאר אלי א לי אלאת המלאלאלותי מי ל אתי .
+וא .
+ל ..
+ל לא בו .
+לאוים ל .
+וא לה ה .
+בלי אי .
+לי .
+לו ברי הר ה .
+ה .
+
+ו ה .
+א .
+
+
+ותוב ל א ביובי מו הו ..
+וביות ..
+
+ה ה .
+
+ו ה .
+
+מי לאי אר ל א אוא ..
+ות .
+אי .
+ל ה ה .
+ו הות .
+
+א א ה .
+
+
+ל .
+
+א איר .
+ות ה לות ...
+א ל .
+א ברים הות ה מי מי ה א .
+ו לי ה .
+
+
+
+לי .
+א מוא היו הי ה א ה ה לאות אוא א א ה ה ..
+
+
+
+
+אלורואיני בירות ..
+
+
+ל .
+ואי הרות לי ..
+
+הובי .
+
+ה '''
+
+Seen 110 batches. last loss is: 2.6687004566192627
+Seen 120 batches. last loss is: 2.664626359939575
+Seen 130 batches. last loss is: 2.663254737854004
+Seen 140 batches. last loss is: 2.5881991386413574
+Seen 150 batches. last loss is: 2.5651538372039795
+Seen 160 batches. last loss is: 2.5124168395996094
+Seen 170 batches. last loss is: 2.508971929550171
+Seen 180 batches. last loss is: 2.510037899017334
+Seen 190 batches. last loss is: 2.5326197147369385
+Seen 200 batches. last loss is: 2.5387730598449707
+Model sample: ''' ארא בר לא העל בות .
+
+ולא העל את ובער היד העדולים וער .
+
+ובובות בעת את אל הר, ל את באת א בר האות ורא .
+
+ואלבעל אריותיול ויול לא ה לא הואו ל בל .
+
+ואות אל הי ל היולואות ה הר ה או העראור .
+
+לארותיותירו א מראיול ורא .
+
+א א ברעוראים.
+
+ולות, העלי ה הואל א ה הולורע .
+
+ורול הול ה ה הרותי אלא העלאותים .
+
+ה ליול אליולורות אלאלורע ליו .
+
+וא א הירול הים א בעליו לים ה ותירותים בי בר א .
+
+וים ה בירורא לידולוי ה .
+
+וא לו היקטוא א הע ביו ה ה .
+
+ואל ואלאור ה א ל בעוא אולאיו .
+
+ו הור ה בילאלות לולא הרורידילהו ו '''
+
+Seen 210 batches. last loss is: 2.4805963039398193
+Seen 220 batches. last loss is: 2.4277257919311523
+Seen 230 batches. last loss is: 2.4330296516418457
+Seen 240 batches. last loss is: 2.4292359352111816
+Seen 250 batches. last loss is: 2.4454762935638428
+Seen 260 batches. last loss is: 2.4381496906280518
+Seen 270 batches. last loss is: 2.352985143661499
+Seen 280 batches. last loss is: 2.366266965866089
+Seen 290 batches. last loss is: 2.296558141708374
+Seen 300 batches. last loss is: 2.35082745552063
+Model sample: '''i ביא ויו .
+
+אלו העור אלי בידי .
+
+לאו המיה בא ברו הוא – .
+
+העדי א היד בלה לור אלי היותים, ברי א אולה השל ולי או ורהיורו ליהו לו להיודה, היה הות מרא מור ליו הים הוא לבורה הורה שלי שיודה ה והיולה שה מורורי לים הביה השוד הותור הוא השים, ובל השהו אה ול השרורה מה היו או הוליות אול ורומולב ה מואול הבלב הודרו מול א בא הודו מה, מורו ולה וא המיו מוריה מומשי היה היה משר הור בה הוביה היה הואולים וד ה.
+
+והוה הובי הולות הוא היה היה הול ומהולב הוליות וליוד .
+
+ובירו היה לא הורול ולבה הרבי הולהוד ה הרוריו וביור'''
+
+Seen 310 batches. last loss is: 2.2663304805755615
+Seen 320 batches. last loss is: 2.3231587409973145
+Seen 330 batches. last loss is: 2.267768621444702
+Seen 340 batches. last loss is: 2.2305994033813477
+Seen 350 batches. last loss is: 2.3467838764190674
+Seen 360 batches. last loss is: 2.263408899307251
+Seen 370 batches. last loss is: 2.298292875289917
+Seen 380 batches. last loss is: 2.182999610900879
+Seen 390 batches. last loss is: 2.2440123558044434
+Seen 400 batches. last loss is: 2.2965586185455322
+Model sample: '''d לי בילי,                אי                        ויור      הוב                           הצי הורא       ולבא .
+
+אר אר בירו בלידי הורות .
+
+מהולי לא מחירי בן-יהוא .
+
+לדף הראשי של מפרויקט בן-יהודה .
+
+דף זה הוא הוא הוא הודמה, שלקיות מתקיות לדות מתה, הודו מתקים לממתקים המהדביו הוא שמתיות, הרותות המהות הולבות משלי ליפה הולא מתחליות .
+
+היד לאש עלי מפרי מתיקרי.
+
+לא משכר הית הוא הידי היא בידי לדע הועו לי הרא מפרדי היודות – .
+
+לא היהא אידיא מעי הרי משינה הינה המתרות משה, ולא שליות לירי שו היועי הודו הו'''
+
+Seen 410 batches. last loss is: 2.137758731842041
+Seen 420 batches. last loss is: 2.1992690563201904
+Seen 430 batches. last loss is: 2.178166151046753
+Seen 440 batches. last loss is: 2.098789691925049
+Seen 450 batches. last loss is: 2.1659464836120605
+Seen 460 batches. last loss is: 2.1883909702301025
+Seen 470 batches. last loss is: 2.247472047805786
+Seen 480 batches. last loss is: 2.156400442123413
+Seen 490 batches. last loss is: 2.1526920795440674
+Seen 500 batches. last loss is: 2.1855883598327637
+Model sample: '''if .
+
+ויש בישין .
+
+לא היא הדוד .
+
+היום ברים,
+
+ובעד ביעור .
+
+איני בשר השלוק,
+
+שלי הנוח מעור היה,
+
+הא לא ברח מעד אוד .
+
+מהיה אחרי לא שירי שלה היור .
+
+לי ידה היה לבוה השוא העורה .
+
+היודו, העודו השמו ואתה הנשים.
+
+ואחירי לי, את הרא היה היא הוישיר הוא, לא לבי הוא הנעיר האשר .
+
+איה לבו אחרים אור האורים, לשו את לי הישו וא הא בשורה, שלהים לבבות השיה היה ומרדות העלות שובהו והביה המעור של השותים משור לבעונים בחלות שלות המשול משועות של הנשרה .
+
+ואי אחרי בובער בשית בואורי הרועו ליבר שברה השבה היה היה הבעות, '''
+
+Seen 510 batches. last loss is: 2.0861480236053467
+Seen 520 batches. last loss is: 2.145364999771118
+Seen 530 batches. last loss is: 2.079084873199463
+Seen 540 batches. last loss is: 2.029452323913574
+Seen 550 batches. last loss is: 2.053236484527588
+Seen 560 batches. last loss is: 2.0055549144744873
+Seen 570 batches. last loss is: 1.9685723781585693
+Seen 580 batches. last loss is: 2.0292136669158936
+Seen 590 batches. last loss is: 2.1429004669189453
+Seen 600 batches. last loss is: 2.0587193965911865
