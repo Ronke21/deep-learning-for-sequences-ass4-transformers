@@ -25,23 +25,27 @@ def heat_map_attention(x: Tensor, attention_layer: CausalSelfAttention):
 def create_heatmap_plot_for_model(model: TransformerLM, x: Tensor, dir_path: str):
     num_layers = len(model.layers)
     num_heads = len(model.layers[0].causal_attention.kqv_matrices)
-    fig, axes = plt.subplots(num_layers, num_heads, figsize=(20, 20))
+
+    # Increase figure size: 4x4 inches per heatmap
+    fig_width = num_heads * 4
+    fig_height = num_layers * 4
+    fig, axes = plt.subplots(num_layers, num_heads, figsize=(fig_width, fig_height))
 
     for i, layer in enumerate(model.layers):
         for j, head in enumerate(layer.causal_attention.kqv_matrices):
             heat_map = heat_map_kqv(x, head)
-
-            ax = axes[i, j]
+            ax = axes[i, j] if num_layers > 1 else axes[j]
             cax = ax.matshow(heat_map.numpy()[0], cmap="viridis")
             fig.colorbar(cax, ax=ax)
-
             ax.set_title(f"Layer {i + 1} Head {j + 1}")
-            ax.axis("off")  # Hide axes for a cleaner look
+            ax.axis("off")
 
     plt.tight_layout()
-    plt.savefig(dir_path + "attention_heatmaps.png")
-    print(f"Attention heatmaps saved to {dir_path}attention_heatmaps.png")
+    save_path = f"{dir_path.rstrip('/')}/attention_heatmaps.png"
+    plt.savefig(save_path, dpi=300)  # Higher DPI for better quality
+    print(f"Attention heatmaps saved to {save_path}")
     plt.close()
+
 
 
 def main(text: str, dir_path: str, embed_size: int = 192, max_content_len: int = 128, n_layers: int = 6, n_heads: int = 6):
@@ -67,11 +71,15 @@ def main(text: str, dir_path: str, embed_size: int = 192, max_content_len: int =
 
 
 if __name__ == "__main__":
-    dir_path = "results_eng_regular/"
-    model_path = dir_path + "llm_model_50000_seq-len_128_batch-size_64_data-path_data_n-layers_6_n-heads_6_embed-size_192_mlp-hidden-size768_learning-rate_0.0005_gradient-clipping_1.0_weight-decay_0.01_num-batches-to-train_50000_use-scheduler_True.pth"
-    tokenizer_path = dir_path + "seq-len_128_batch-size_64_data-path_data_n-layers_6_n-heads_6_embed-size_192_mlp-hidden-size768_learning-rate_0.0005_gradient-clipping_1.0_weight-decay_0.01_num-batches-to-train_50000_use-scheduler_True_tokenizer.pth"
+    # dir_path = "results_eng_all_better/"
+    # sentence = "This is my attempt to visualize the attention in a transformer model."
+    # embed_size = 384
+    # max_content_len = 256
+    # n_layers = 12
+    # n_heads = 12
+    dir_path = "results_eng_bigger_embed/"
     sentence = "This is my attempt to visualize the attention in a transformer model."
-    embed_size = 192
+    embed_size = 384
     max_content_len = 128
     n_layers = 6
     n_heads = 6
